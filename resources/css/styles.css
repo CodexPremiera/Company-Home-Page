@@ -19,12 +19,78 @@ html {
 }
 body {
     position: relative;
-    top: 100px;
+    top: 120px;
 }
 h1, h2, h3, h4, h5, p {
     margin: 0;
 }
 
+/* ================ containers ================ */
+/**
+   Class .container refers to divs that hosts the true content of the section. They are mostly sections but
+   a child div of a section.
+ */
+.container {
+    padding: 24px 12px;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media only screen and (min-width: 960px) and (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+        flex-grow: 1;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+        flex-grow: 1;
+    }
+    .container.main>div {
+        max-width: 90%;
+    }
+}
+
+/* ================ media-content ================ */
+/**
+   Class .media-content refers to divs that contains two divs namely .media.block and .content.block.
+   It is found is .banner and .features classes.
+ */
+.media-content {
+    /* dimensions */
+    width: 100%;
+    /* display */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: flex-start;
+    align-items: center;
+}
+.media-content.reverse {
+    flex-direction: row-reverse;
+}
+.media-content .block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+    align-content: center;
+}
+.media-content .content {
+    width: 50%;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+.media-content .media {
+    width: 48%;
+    height: 100%;
+}
+.media.block video, .media.block img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
 /* ================ buttons ================ */
 .button {
@@ -36,6 +102,9 @@ h1, h2, h3, h4, h5, p {
     border: 2px solid black;
     border-radius: .50rem;
 }
+.button:hover {
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+}
 a.button {
     color: black;
     text-decoration: none;
@@ -45,25 +114,30 @@ a.button {
 .top-bar {
     /* dimensions */
     width: 100%;
-    height: 64px;
+    height: 72px;
     background: white;
-
     /* positioning */
     position: fixed;
     z-index: 10;
-    margin-top: -108px;
+    margin-top: -128px;
     margin-left: -8px;
     margin-bottom: 55px;
-    padding: 0 12%;
-
+    padding: 24px 12px;
+    /* display */
+    display: flex;
+    justify-content: center;
+    /* decor */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.top-bar .container {
+    height: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
     /* display */
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-content: center;
-
-    /* decor */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .top-bar a {
     color: black;
@@ -79,54 +153,40 @@ a.button {
 /* ================ .banner ================ */
 .banner {
     /* dimensions */
-    min-width: 400px;
-    max-width: 1200px;
     height: 580px;
-    flex-grow: 1;
     background: white;
     /* positioning */
     position: relative;
+    margin-bottom: 100px;
     /* display */
     display: flex;
     flex-direction: column;
-    margin: 0 auto 100px;
     align-items: flex-start;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
-.banner .top {
-    width: 100%;
+.banner .media-content {
     height: 66%;
-    padding: 25px 8px;
-    display: flex;
 }
-.banner .top .message {
-    display: flex;
-    flex-direction: column;
-    width: 54%;
-    align-items: flex-start;
-    justify-content: space-evenly;
-}
-.banner .top video {
-    width: 46%;
-    height: auto;
-}
-.banner .message h1 {
+.banner .content h1 {
     margin-top: 0;
     margin-bottom: 1.5rem;
     /* font */
-    font-size: 3rem;
+    font-size: 2.7rem;
     font-weight: 600;
     line-height: 1.34;
 }
-.banner .message h2 {
+.banner .content span {
+    color: #F3C31A;
+}
+.banner .content h2 {
     margin-top: 0;
     margin-bottom: 2rem;
     /* font */
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: normal;
     line-height: 1.2;
 }
-.banner .message .button {
+.banner .content .button {
     width: 12rem;
     min-height: 4rem;
     font-size: 1rem;
@@ -134,12 +194,14 @@ a.button {
     background-color: #F3C31A;
     border: none;
 }
-.banner .message .button:hover {
-    background-color: #e08700;
+.banner .content .button:hover
+.banner .media.block {
+    align-items: flex-start;
 }
 .banner .topics {
     /* dimensions */
     width: 100%;
+    padding: 25px 0;
     /* display */
     grid-row: 2 / span 1;
     grid-column: 1 /span 2;
@@ -175,31 +237,32 @@ a.button {
     margin-bottom: 1rem;
 }
 
+/* ================ main ================ */
+.main {
+    /* display */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 /* ================ features ================ */
 .features {
     /* dimensions */
-    min-width: 400px;
-    max-width: 1080px;
-    flex-grow: 1;
     background: white;
     /* positioning */
     position: relative;
-    padding: 0 12px;
-    /* display */
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto 0;
+
     align-items: center;
     align-content: space-evenly;
 }
 .features .title{
     max-width: 800px;
-    margin-bottom: 60px;
+    margin: 0 auto 60px;
     /* display */
     display: flex;
     flex-direction: column;
     justify-self: center;
+    justify-content: center;
     align-items: center;
     text-align: center;
 }
@@ -227,28 +290,7 @@ a.button {
 }
 .features .media-content {
     min-height: 340px;
-    width: 100%;
     margin-bottom: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    justify-items: flex-start;
-    align-items: center;
-}
-.features .media-content.reverse {
-    flex-direction: row-reverse;
-}
-.features .media-content .block {
-    max-width: 510px;
-    flex-grow: 1;
-}
-.features .media.block {
-    justify-self: center;
-}
-.features .block video, .block img {
-    width: 100%;
-    height: auto;
-    display: block;
 }
 
 
@@ -256,13 +298,11 @@ a.button {
 .start {
     display: flex;
     flex-direction: column;
-    margin: 0 auto 2rem;
+    margin-bottom: 10rem;
     align-items: center;
     justify-content: space-evenly;
     padding-top: 2rem;
-    padding-bottom: 2rem;
     /* dimensions */
-    max-width: 1080px;
     height: 200px;
     border-top: 2px solid black;
 }
@@ -283,7 +323,7 @@ a.button {
 .footer {
     /* dimensions */
     width: 101%;
-    height: 400px;
+    height: 320px;
     /* positioning */
     margin-left: -8px;
     /* display */
@@ -295,10 +335,9 @@ a.button {
     color: white;
 }
 .footer .container{
-    /* dimensions */
-    width: 1200px;
     /* display */
-    padding: 0 12px;
+    padding-top: 0;
+    padding-bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -319,7 +358,7 @@ a.button {
     color: white;
 }
 .footer .logo a span{
-    color: #e08700;
+    color: #F3C31A;
 }
 .footer .company, .footer .products {
     /* dimensions */
